@@ -26,6 +26,7 @@ class FolderViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
 class DocumentViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
+    queryset = Document.objects.all()
     serializer_class = DocumentSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = Document.objects.select_related("folder")

@@ -24,7 +24,7 @@ class Document(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="documents")
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name="documents")
     title = models.CharField(max_length=255)
-    content = models.JSONField(default=list)  # bloques del editor
+    content = models.JSONField(default=list, blank=True)  # bloques del editor
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
