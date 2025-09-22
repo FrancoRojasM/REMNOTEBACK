@@ -103,7 +103,15 @@ class ReviewLog(TimeStamped):
     HARD = "hard"
     GOOD = "good"
     EASY = "easy"
-    GRADE_CHOICES = [(AGAIN, AGAIN), (HARD, HARD), (GOOD, GOOD), (EASY, EASY)]
+    SKIP = "skip"  # NUEVO
+
+    GRADE_CHOICES = [
+        (AGAIN, AGAIN),
+        (HARD, HARD),
+        (GOOD, GOOD),
+        (EASY, EASY),
+        (SKIP, SKIP),  # NUEVO
+    ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="review_logs")
     flashcard = models.ForeignKey(Flashcard, on_delete=models.CASCADE, related_name="reviews")
