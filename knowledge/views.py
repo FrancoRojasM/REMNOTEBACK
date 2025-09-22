@@ -371,15 +371,22 @@ class FlashcardViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
 
         # 2) Persistir difficulty acorde al grade (excepto skip)
         grade_to_difficulty = {
-            "again": "repetir",
-            "hard": "dificil",
-            "good": "facil",
-            "easy": "muy-facil",
-            # skip: no cambia
+            "again": "olvide",
+            "hard": "parcialmente",
+            "good": "esfuerzo",
+            "easy": "facil",
+            "skip": "saltar"
         }
+
+        new_diff = grade_to_difficulty.get(grade, card.difficulty)
+        card.difficulty = new_diff
+
+        # No sumar review_count en skip
         if grade != "skip":
-            card.difficulty = grade_to_difficulty.get(grade, card.difficulty)
             card.review_count = (card.review_count or 0) + 1
+        # if grade != "skip":
+        #     card.difficulty = grade_to_difficulty.get(grade, card.difficulty)
+        #     card.review_count = (card.review_count or 0) + 1
 
         card.next_review = next_review
         card.save(update_fields=["difficulty", "next_review", "review_count", "updated_at"])
