@@ -83,12 +83,20 @@ class Flashcard(TimeStamped):
         (MULTIPLE, "multiple"),
     ]
 
+    # DIFFICULTY_CHOICES = [
+    #     ("muy-facil", "muy-facil"),
+    #     ("facil", "facil"),
+    #     ("medio", "medio"),
+    #     ("dificil", "dificil"),
+    #     ("muy-dificil", "muy-dificil"),
+    # ]
+
     DIFFICULTY_CHOICES = [
-        ("muy-facil", "muy-facil"),
+        ("olvide", "olvide"),
+        ("parcialmente", "parcialmente"),
+        ("esfuerzo", "esfuerzo"),
         ("facil", "facil"),
-        ("medio", "medio"),
-        ("dificil", "dificil"),
-        ("muy-dificil", "muy-dificil"),
+        ("saltar", "saltar"),
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="flashcards")
@@ -99,7 +107,8 @@ class Flashcard(TimeStamped):
     front = models.TextField()
     back = models.TextField()
     theme = models.CharField(max_length=200, blank=True, default="")
-    difficulty = models.CharField(max_length=12, choices=DIFFICULTY_CHOICES, default="facil")
+    # difficulty = models.CharField(max_length=12, choices=DIFFICULTY_CHOICES, default="facil")
+    difficulty = models.CharField(max_length=12, choices=DIFFICULTY_CHOICES, default="Sin registro")
 
     next_review = models.DateTimeField(null=True, blank=True)
     review_count = models.PositiveIntegerField(default=0)

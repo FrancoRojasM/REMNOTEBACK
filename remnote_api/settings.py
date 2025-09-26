@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 
     # DRF + extras
     "rest_framework",
-    "rest_framework.authtoken",
     "corsheaders",
+    "rest_framework.authtoken",
     "drf_spectacular",
     "drf_spectacular_sidecar",
 
@@ -143,7 +143,7 @@ TIME_ZONE = os.getenv("TIME_ZONE", "America/Lima")
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # (opcional, explícito)
 LANGUAGES = [
