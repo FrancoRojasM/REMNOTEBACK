@@ -7,6 +7,7 @@ class FolderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Folder
         fields = ["id", "name", "parent", "position"]
+        read_only_fields = ["created_at", "updated_at"]
 
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:

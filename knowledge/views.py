@@ -23,9 +23,17 @@ class FolderViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Folder.objects.all()
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        parent_id = self.request.query_params.get("parent")
+        if parent_id is not None:
+            qs = qs.filter(parent_id=parent_id)
+        return qs.order_by("created_at", "id")
+    
     @extend_schema(tags=["Folders"])
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+    
 
 class DocumentViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
     queryset = Document.objects.all()
@@ -41,7 +49,8 @@ class DocumentViewSet(OwnerQuerysetMixin, viewsets.ModelViewSet):
         search = self.request.query_params.get("q")
         if search:
             qs = qs.filter(Q(title__icontains=search))
-        return qs
+        # return qs
+        return qs.order_by("created_at", "id")
 
     @extend_schema(
         tags=["Documents"],

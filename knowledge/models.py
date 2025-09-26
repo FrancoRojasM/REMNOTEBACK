@@ -14,8 +14,17 @@ class Folder(models.Model):
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name="children")
     position = models.IntegerField(default=0)
 
+    # class Meta:
+    #     ordering = ["position", "id"]
+    
+    # 👇 NUEVO
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
-        ordering = ["position", "id"]
+        # 1º position, 2º created_at (antiguo→nuevo), 3º id para desempate
+        ordering = ["position", "created_at", "id"]
+        
 
     def __str__(self):
         return self.name
